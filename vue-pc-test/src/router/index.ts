@@ -8,11 +8,17 @@ export const router = createRouter({
             path: '/',
             name: 'home',
             component: () => import('@/pages/Home/index.vue'),
+            meta: {
+                title: '首页',
+            }
         },
         {
             path: '/about',
             name: 'about',
             component: () => import('@/pages/About/index.vue'),
+            meta: {
+                title: '关于',
+            }
         }
     ]
 })

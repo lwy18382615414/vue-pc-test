@@ -1,10 +1,9 @@
 <template>
-  <div>
-    <h1>Welcome to Home Page</h1>
-  </div>
+  <TaskList />
 </template>
 
 <script setup lang="ts">
+import TaskList from '@/components/TaskList/index.vue'
 
 </script>
 

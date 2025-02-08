@@ -1,1 +1,4 @@
 @import url("reset.css");
+:root {
+    --el-color-primary: #36d7b7 !important;
+}
