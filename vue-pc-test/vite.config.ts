@@ -8,7 +8,7 @@ export default defineConfig({
   resolve: {
     // 文件别名
     alias: {
-      '@': resolve(__dirname, 'src'),
+      '@': resolve(__dirname, './src'),
     }
   }
 })
