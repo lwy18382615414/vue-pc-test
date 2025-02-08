@@ -10,14 +10,14 @@
         { required: true, message: '标题不能为空', trigger: 'blur' },
         { type: 'string', min: 3, max: 15, message: '标题长度在 3 到 15 个字符', trigger: 'change' }
       ]">
-      <el-input v-model="taskEmptyForm.title" />
+      <el-input v-model="taskEmptyForm.title" @input="handleInput"/>
     </el-form-item>
     <el-form-item label="描述" prop="checkPass">
       <el-input v-model="taskEmptyForm.description" type="textarea" />
     </el-form-item>
     <el-form-item class="form-btns">
       <el-button @click="cancelForm">取消</el-button>
-      <el-button type="primary" @click="confirmForm(taskFormRef)">确认</el-button>
+      <el-button :disabled="isDisabled" type="primary" @click="confirmForm(taskFormRef)">确认</el-button>
     </el-form-item>
   </el-form>
 </template>
@@ -37,6 +37,7 @@ const props = defineProps({
   }
 })
 
+const emits = defineEmits(["confirmForm", "cancelForm"]);
 const taskFormRef = ref<FormInstance>()
 const taskEmptyForm = ref<TaskItemType>({
   id: '',
@@ -45,6 +46,7 @@ const taskEmptyForm = ref<TaskItemType>({
   status: 0,
   createTime: ''
 })
+const isDisabled = ref(true);
 
 watch(
     () => props.taskForm,
@@ -53,9 +55,11 @@ watch(
     },
     { deep: true, immediate: true }
 )
-
-const emits = defineEmits(["confirmForm", "cancelForm"]);
-
+const handleInput = () => {
+  taskFormRef.value?.validateField('title', valid => {
+    isDisabled.value = !valid
+  })
+}
 const confirmForm = (formEl: FormInstance | undefined) => {
   if (!formEl) return
   formEl.validate((valid) => {
